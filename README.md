@@ -6,7 +6,7 @@
 
 Can a deep network screen for diabetes from **survey answers alone**? This project builds a residual multilayer perceptron in PyTorch on **253,680 CDC BRFSS 2015 records**, handles the 13.9% class imbalance without leaking information into evaluation, chooses clinically meaningful decision thresholds, and explains every prediction with SHAP and Integrated Gradients.
 
-> MSc Data Science project, University of Hertfordshire. A full written report is in [`reports/`](reports/Deep_Residual_MLP_Report.pdf).
+> MSc Data Science project, University of Hertfordshire. A full written report is included: [`Deep_Residual_MLP_Report.pdf`](Deep_Residual_MLP_Report.pdf).
 
 ---
 
@@ -23,7 +23,7 @@ Can a deep network screen for diabetes from **survey answers alone**? This proje
 
 ## Methodology
 
-![Methodology flowchart](reports/figures/methodology_flowchart.png)
+![Methodology flowchart](methodology_flowchart.png)
 
 **[Explore the interactive methodology](https://spoorthihs4-ops.github.io/diabetes-risk-deep-residual-mlp/)** – click any stage to see what it does, why it matters, the result it produced and the techniques behind it.
 
@@ -71,8 +71,8 @@ flowchart TB
 Threshold-free: **AUC 0.9015 · average precision 0.6703 · Brier 0.0937**. Both thresholds were chosen on validation data before the test set was used.
 
 <p align="center">
-  <img src="reports/figures/evaluation_panels.png" width="49%" alt="Evaluation panels">
-  <img src="reports/figures/shap_importance.png" width="49%" alt="SHAP feature importance">
+  <img src="evaluation_panels.png" width="49%" alt="Evaluation panels">
+  <img src="shap_importance.png" width="49%" alt="SHAP feature importance">
 </p>
 
 ### What the ablations showed
@@ -87,25 +87,25 @@ Threshold-free: **AUC 0.9015 · average precision 0.6703 · Brier 0.0937**. Both
 The takeaway: with 21 self-reported features, **performance is limited by the information in the data, not the size of the network**. The biggest practical gains came from leakage-free evaluation and a clinically chosen threshold.
 
 <p align="center">
-  <img src="reports/figures/depth_width_heatmaps.png" width="80%" alt="Depth x width ablation">
+  <img src="depth_width_heatmaps.png" width="80%" alt="Depth x width ablation">
 </p>
 
 ## Notebooks
 
 | Notebook | Contents |
 |---|---|
-| [`00_full_pipeline_run_all`](notebooks/00_full_pipeline_run_all.ipynb) | **Everything, top to bottom - run this to reproduce** |
-| [`01_data_preprocessing_and_eda`](notebooks/01_data_preprocessing_and_eda.ipynb) | Objectives, dataset, leakage-free split, scaling, SMOTE, EDA |
-| [`02_model_and_depth_width_ablation`](notebooks/02_model_and_depth_width_ablation.ipynb) | Residual MLP, focal loss, utilities, 20-configuration ablation |
-| [`03_training_and_threshold_optimisation`](notebooks/03_training_and_threshold_optimisation.ipynb) | Full training, curve dashboard, clinical thresholds |
-| [`04_evaluation_and_explainability`](notebooks/04_evaluation_and_explainability.ipynb) | Test metrics, evaluation panels, SHAP, Integrated Gradients, val-test audit |
-| [`05_regularisation_ablation_and_conclusions`](notebooks/05_regularisation_ablation_and_conclusions.ipynb) | Loss, activation and dropout ablations, limitations, conclusions |
+| [`00_full_pipeline_run_all`](00_full_pipeline_run_all.ipynb) | **Everything, top to bottom - run this to reproduce** |
+| [`01_data_preprocessing_and_eda`](01_data_preprocessing_and_eda.ipynb) | Objectives, dataset, leakage-free split, scaling, SMOTE, EDA |
+| [`02_model_and_depth_width_ablation`](02_model_and_depth_width_ablation.ipynb) | Residual MLP, focal loss, utilities, 20-configuration ablation |
+| [`03_training_and_threshold_optimisation`](03_training_and_threshold_optimisation.ipynb) | Full training, curve dashboard, clinical thresholds |
+| [`04_evaluation_and_explainability`](04_evaluation_and_explainability.ipynb) | Test metrics, evaluation panels, SHAP, Integrated Gradients, val-test audit |
+| [`05_regularisation_ablation_and_conclusions`](05_regularisation_ablation_and_conclusions.ipynb) | Loss, activation and dropout ablations, limitations, conclusions |
 
 ## Reproduce
 
 1. Download `diabetes_binary_health_indicators_BRFSS2015.csv` from the [Diabetes Health Indicators dataset](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset) and place it next to the notebook.
 2. `pip install -r requirements.txt`
-3. Run [`00_full_pipeline_run_all.ipynb`](notebooks/00_full_pipeline_run_all.ipynb) top to bottom. It runs on CPU; the full training took about 29 minutes.
+3. Run [`00_full_pipeline_run_all.ipynb`](00_full_pipeline_run_all.ipynb) top to bottom. It runs on CPU; the full training took about 29 minutes.
 
 ## Limitations
 
@@ -113,14 +113,14 @@ Self-reported, cross-sectional survey data with no laboratory biomarkers (HbA1c,
 
 ## Repository structure
 
-```
-diabetes-risk-deep-residual-mlp/
-├── notebooks/            # 00 full pipeline + 01-05 part notebooks (with outputs)
-├── reports/              # written report (PDF + Word) and figures
-├── docs/index.html       # interactive methodology (GitHub Pages)
-├── requirements.txt
-└── README.md
-```
+All files sit in the repository root so they upload and display correctly:
+
+- `00_full_pipeline_run_all.ipynb` – the complete pipeline (run this to reproduce)
+- `01_…` to `05_…ipynb` – part notebooks with executed outputs
+- `Deep_Residual_MLP_Report.pdf` / `.docx` – written report
+- `methodology_flowchart.png` and the result charts shown above
+- `index.html` – interactive methodology page (GitHub Pages)
+- `requirements.txt`, `.gitignore`
 
 ## Author
 
